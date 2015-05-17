@@ -13,6 +13,16 @@ public class Dependente {
     private long id;
     private String nome;
     private String sobrenome;
+    
+    private long idPessoa;
+
+    public long getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(long idPessoa) {
+        this.idPessoa = idPessoa;
+    }
 
     public long getId() {
         return id;
@@ -41,9 +51,10 @@ public class Dependente {
     public Dependente() {
     }
 
-    public Dependente(long id, String nome, String sobrenome) {
+    public Dependente(long id, String nome, String sobrenome, long idPessoa) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
+        this.idPessoa = idPessoa;
     }
 }

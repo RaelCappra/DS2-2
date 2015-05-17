@@ -16,7 +16,9 @@ public class PessoaDao implements Dao<Pessoa, Long> {
     public void save(Pessoa entity) {
         String query = "insert into pessoa (nome, sobrenome) values (?, ?)";
         try {
-            conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            if(conexao == null){
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
             try (Connection connection = conexao.getConnection();
                     PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setString(1, entity.getNome());
