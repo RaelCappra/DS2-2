@@ -2,6 +2,7 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,10 @@ public class PessoaDao implements Dao<Pessoa, Long> {
                     PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setString(1, entity.getNome());
                 ps.setString(2, entity.getSobrenome());
+                ps.execute();
+            }
+            catch(SQLException e){
+                //TODO: ERRO: nao foi adicionada a pessoa
             }
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
