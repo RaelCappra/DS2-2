@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import model.Dependente;
 import model.Pessoa;
 //TODO:Adicionar a lista de dependentes à pessoa quando possivel
+
 public class PessoaDao implements Dao<Pessoa, Long> {
 
     private static ConexaoPostgreSQL conexao;
@@ -69,9 +70,17 @@ public class PessoaDao implements Dao<Pessoa, Long> {
 
                 while (rs.next()) {
                     Pessoa pessoa = new Pessoa();
-                    pessoa.setId(rs.getLong("id"));
-                    pessoa.setNome(rs.getString("nome"));
-                    pessoa.setSobrenome(rs.getString("sobrenome"));
+                    long id = rs.getLong("id");
+                    String nome = rs.getString("nome");
+                    String sobrenome = rs.getString("sobrenome");
+                    pessoa.setId(id);
+                    pessoa.setNome(nome);
+                    pessoa.setSobrenome(sobrenome);
+
+                    DependenteDao dependenteDao = new DependenteDao();
+                    List<Dependente> dependentes = dependenteDao.listByPessoa(id);
+                    pessoa.setDependentes(dependentes);
+
                     result.add(pessoa);
                 }
             } catch (SQLException e) {
@@ -96,7 +105,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
                     PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setLong(1, pk);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     long id = rs.getLong("id");
                     String nome = rs.getString("nome");
                     String sobrenome = rs.getString("sobrenome");
@@ -104,7 +113,12 @@ public class PessoaDao implements Dao<Pessoa, Long> {
                     result.setId(id);
                     result.setNome(nome);
                     result.setSobrenome(sobrenome);
-                } else{
+
+                    DependenteDao dependenteDao = new DependenteDao();
+                    List<Dependente> dependentes = dependenteDao.listByPessoa(id);
+                    result.setDependentes(dependentes);
+
+                } else {
                     //TODO: ERRO: não ha dependente com este id
                 }
             } catch (SQLException e) {
@@ -113,7 +127,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result;    
+        return result;
     }
 
 }
