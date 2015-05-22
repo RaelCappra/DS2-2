@@ -19,7 +19,8 @@
                <tr>
                     <td>${dependente.nome}</td> 
                     <td>${dependente.sobrenome}</td> 
-                    <td>${dependente.id}</td> 
+                    <td>${dependente.id}</td>
+                    <td><a href="Servlet?action=excluirDependente&dependenteid=${dependente.id}&pessoaid=${pessoa.id}">Excluir</a></td>
                </tr>
             </c:forEach>
         </table>

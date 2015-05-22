@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//TODO: Parar de usar post com os redirects, usar request.setAttr instead
 package servlet;
 
 import java.io.IOException;
@@ -114,6 +110,37 @@ public class Servlet extends HttpServlet {
                 PessoaDao pessoaDao = new PessoaDao();
                 pessoaDao.delete(pessoaId);
                 RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
+                rd.forward(request, response);
+                break;
+            }
+
+            case ("excluirDependente"): {
+                String paramDependenteId = request.getParameter("dependenteid");
+                long dependenteId;
+                try {
+                    dependenteId = Long.parseLong(paramDependenteId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                
+                DependenteDao dependenteDao = new DependenteDao();
+                dependenteDao.delete(dependenteId);
+                //request.setAttribute("action", "listarDependentes");
+                //request.setAttribute("pessoaid", pessoaId);
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("Servlet?action=listarDependentes&pessiaId=" + pessoaId);
                 rd.forward(request, response);
                 break;
             }
