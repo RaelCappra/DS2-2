@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Dependente;
 import model.Pessoa;
-
+//TODO:Adicionar a lista de dependentes à pessoa quando possivel
 public class PessoaDao implements Dao<Pessoa, Long> {
 
     private static ConexaoPostgreSQL conexao;

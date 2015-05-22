@@ -44,7 +44,9 @@ public class Servlet extends HttpServlet {
                 request.setAttribute("pessoas", pessoas);
                 RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
                 rd.forward(request, response);
+                break;
             }
+            
         }
     }
 

@@ -15,7 +15,12 @@
     <body>
         <table>
             <c:forEach items="${pessoas}" var="pessoa">
-                <tr><td>${pessoa.nome}</td></tr>
+                <tr>
+                    <td>${pessoa.nome}</td>
+                    <td>${pessoa.sobrenome}</td>
+                    <td><a href="listagem_dependentes?pessoaid=${pessoa.id}">dependentes</a></td>
+                
+                </tr>
             </c:forEach>
         </table>
     </body>
