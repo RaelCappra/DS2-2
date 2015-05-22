@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -91,7 +92,18 @@ public class Servlet extends HttpServlet {
                 break;   
             }
             
-            
+            case("adicionarPessoa"):{
+                
+                PessoaDao pessoaDao = new PessoaDao();
+                String nome = request.getParameter("nome");
+                String sobrenome = request.getParameter("sobrenome");
+                Pessoa novaPessoa = new Pessoa(0, nome, sobrenome, new ArrayList<Dependente>());
+                pessoaDao.save(novaPessoa);
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("Servlet?action=listarPessoas");
+                rd.forward(request, response);
+                break;   
+            }
         }
     }
 

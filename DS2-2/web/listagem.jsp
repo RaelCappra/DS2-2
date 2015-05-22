@@ -23,5 +23,6 @@
                 </tr>
             </c:forEach>
         </table>
+        <a href="adicionar_pessoa.jsp?">Adicionar pessoa</a>
     </body>
 </html>
