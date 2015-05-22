@@ -40,8 +40,8 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
-        switch (action){
-            case("listarPessoas"):{
+        switch (action) {
+            case ("listarPessoas"): {
                 PessoaDao pessoaDao = new PessoaDao();
                 List<Pessoa> pessoas = pessoaDao.listAll();
                 request.setAttribute("pessoas", pessoas);
@@ -49,17 +49,16 @@ public class Servlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
             }
-            case("listarDependentes"):{
+            case ("listarDependentes"): {
                 String paramPessoaId = request.getParameter("pessoaid");
                 long pessoaId = 0;
-                try{
+                try {
                     pessoaId = Long.parseLong(paramPessoaId);
-                } catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
                 }
-                
-                
+
                 PessoaDao pessoaDao = new PessoaDao();
                 Pessoa pessoa = pessoaDao.getById(pessoaId);
                 List<Dependente> dependentes = pessoa.getDependentes();
@@ -69,40 +68,54 @@ public class Servlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
             }
-            
-            case("adicionarDependente"):{
+
+            case ("adicionarDependente"): {
                 String paramPessoaId = request.getParameter("pessoaid");
                 long pessoaId;
-                try{
+                try {
                     pessoaId = Long.parseLong(paramPessoaId);
-                } catch(NumberFormatException e){
+                } catch (NumberFormatException e) {
                     RequestDispatcher rd = request.getRequestDispatcher("index.html");
                     rd.forward(request, response);
                     break;
                 }
-                
+
                 DependenteDao dependenteDao = new DependenteDao();
                 String nome = request.getParameter("nome");
                 String sobrenome = request.getParameter("sobrenome");
                 Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
                 dependenteDao.save(novoDependente);
-                RequestDispatcher rd = request.getRequestDispatcher
-                    ("Servlet?action=listarDependentes&pessoaid=" + pessoaId);
+                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarDependentes&pessoaid=" + pessoaId);
                 rd.forward(request, response);
-                break;   
+                break;
             }
-            
-            case("adicionarPessoa"):{
-                
+
+            case ("adicionarPessoa"): {
+
                 PessoaDao pessoaDao = new PessoaDao();
                 String nome = request.getParameter("nome");
                 String sobrenome = request.getParameter("sobrenome");
                 Pessoa novaPessoa = new Pessoa(0, nome, sobrenome, new ArrayList<Dependente>());
                 pessoaDao.save(novaPessoa);
-                RequestDispatcher rd = request.getRequestDispatcher
-                    ("Servlet?action=listarPessoas");
+                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
                 rd.forward(request, response);
-                break;   
+                break;
+            }
+            case ("excluirPessoa"): {
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                PessoaDao pessoaDao = new PessoaDao();
+                pessoaDao.delete(pessoaId);
+                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
+                rd.forward(request, response);
+                break;
             }
         }
     }
