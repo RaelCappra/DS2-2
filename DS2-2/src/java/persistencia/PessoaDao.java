@@ -57,7 +57,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
 
     @Override
     public List<Pessoa> listAll() {
-        String query = "select * from dependente";
+        String query = "select * from pessoa";
         List<Pessoa> result = new ArrayList<>();
         try {
             if (conexao == null) {
@@ -87,7 +87,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
     @Override
     public Pessoa getById(Long pk) {
         Pessoa result = null;
-        String query = "select * from dependente where id = ?";
+        String query = "select * from pessoa where id = ?";
         try {
             if (conexao == null) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
