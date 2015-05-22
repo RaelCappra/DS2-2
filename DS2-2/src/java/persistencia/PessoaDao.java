@@ -86,8 +86,34 @@ public class PessoaDao implements Dao<Pessoa, Long> {
 
     @Override
     public Pessoa getById(Long pk) {
-        //TODO: implementar getById
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pessoa result = null;
+        String query = "select * from dependente where id = ?";
+        try {
+            if (conexao == null) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, pk);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    long id = rs.getLong("id");
+                    String nome = rs.getString("nome");
+                    String sobrenome = rs.getString("sobrenome");
+                    result = new Pessoa();
+                    result.setId(id);
+                    result.setNome(nome);
+                    result.setSobrenome(sobrenome);
+                } else{
+                    //TODO: ERRO: não ha dependente com este id
+                }
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi buscado o dependente
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;    
     }
 
 }
