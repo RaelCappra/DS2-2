@@ -19,7 +19,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
     public void save(Pessoa entity) {
         String query = "insert into pessoa (nome, sobrenome) values (?, ?)";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -40,7 +40,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
     public void delete(Long id) {
         String query = "delete from pessoa where id = ?";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -60,7 +60,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
         String query = "select * from pessoa";
         List<Pessoa> result = new ArrayList<>();
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -89,7 +89,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
         Pessoa result = null;
         String query = "select * from pessoa where id = ?";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -108,7 +108,7 @@ public class PessoaDao implements Dao<Pessoa, Long> {
                     //TODO: ERRO: não ha dependente com este id
                 }
             } catch (SQLException e) {
-                //TODO: ERRO: nao foi buscado o dependente
+                int i = 0;
             }
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);

@@ -27,7 +27,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
     public void save(Dependente entity) {
         String query = "insert into dependente (nome, sobrenome, pessoa) values (?, ?, ?)";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -48,7 +48,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
     public void delete(Long id) {
         String query = "delete from dependente where id = ?";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -68,7 +68,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
         String query = "select * from dependente";
         List<Dependente> result = new ArrayList<>();
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -98,7 +98,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
         Dependente result = null;
         String query = "select * from dependente where id = ?";
         try {
-            if (conexao == null) {
+            if (conexao == null || conexao.getConnection().isClosed()) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
