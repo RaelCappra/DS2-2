@@ -9,9 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Adicionar dependente</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form method="post" action="Servlet?action=adicionar_dependente">
+            <label for="nome">Nome </label>
+            <input type="text" name="nome" placeholder="Nome" id="nome"><br>
+            <label for="sobrenome">Sobrenome </label>
+            <input type="text" name="nome" placeholder="Sobrenome" id="sobrenome"><br>
+            
+            <input type="hidden" name="action" value="adicionar_dependente">
+            <input type="submit">
+        </form>
     </body>
 </html>
