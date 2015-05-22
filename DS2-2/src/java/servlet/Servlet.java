@@ -170,6 +170,26 @@ public class Servlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
             }
+            
+            case("formEditarPessoa"):{
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                request.setAttribute("nome", pessoa.getNome());
+                request.setAttribute("sobrenome", pessoa.getSobrenome());
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("form_editar_pessoa.jsp");
+                rd.forward(request, response);
+                break;
+            }
         }
     }
 
