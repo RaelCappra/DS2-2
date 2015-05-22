@@ -36,8 +36,21 @@ public class PessoaDao implements Dao<Pessoa, Long> {
 
     @Override
     public void delete(Long id) {
-        //TODO: implementar delete
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "delete from pessoa where id = ?";
+        try {
+            if (conexao == null) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, id);
+                ps.execute();
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi deletado o dependente
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
