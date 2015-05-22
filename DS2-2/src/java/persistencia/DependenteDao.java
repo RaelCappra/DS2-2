@@ -18,13 +18,14 @@ import model.Dependente;
  * @author Rael
  */
 public class DependenteDao implements Dao<Dependente, Long> {
+
     private static ConexaoPostgreSQL conexao;
-    
+
     @Override
     public void save(Dependente entity) {
         String query = "insert into dependente (nome, sobrenome, pessoa) values (?, ?, ?)";
         try {
-            if(conexao == null){
+            if (conexao == null) {
                 conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
             }
             try (Connection connection = conexao.getConnection();
@@ -43,8 +44,21 @@ public class DependenteDao implements Dao<Dependente, Long> {
 
     @Override
     public void delete(Long id) {
-        //TODO: implementar delete
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "delete from dependente where id = ?";
+        try {
+            if (conexao == null) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, id);
+                ps.execute();
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi adicionado o dependente
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
