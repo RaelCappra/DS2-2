@@ -23,6 +23,6 @@
                </tr>
             </c:forEach>
         </table>
-        <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">Adicionar dependente</a>
+        <a href="Servlet?action=page_adicionar_dependente&pessoaid=${pessoa.id}">Adicionar dependente</a>
     </body>
 </html>
