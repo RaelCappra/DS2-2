@@ -56,7 +56,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
                 ps.setLong(1, id);
                 ps.execute();
             } catch (SQLException e) {
-                //TODO: ERRO: nao foi adicionado o dependente
+                //TODO: ERRO: nao foi deletado o dependente
             }
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,7 +84,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
                     result.add(dependente);
                 }
             } catch (SQLException e) {
-                //TODO: ERRO: nao foi adicionado o dependente
+                //TODO: ERRO: nao foram listados os dependentes
             }
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,8 +95,32 @@ public class DependenteDao implements Dao<Dependente, Long> {
 
     @Override
     public Dependente getById(Long pk) {
-        //TODO: implementar getById
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Dependente result = null;
+        String query = "select * from dependente where id = ?";
+        try {
+            if (conexao == null) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, pk);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    long id = rs.getLong("id");
+                    long idPessoa = rs.getLong("pessoa");
+                    String nome = rs.getString("nome");
+                    String sobrenome = rs.getString("sobrenome");
+                    result = new Dependente(id, nome, sobrenome, idPessoa);
+                } else{
+                    //TODO: ERRO: não ha dependente com este id
+                }
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi buscado o dependente
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
     }
 
 }
