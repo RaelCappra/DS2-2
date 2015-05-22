@@ -52,7 +52,7 @@ public class Servlet extends HttpServlet {
                 long pessoaId = 0;
                 try{
                     pessoaId = Long.parseLong(paramPessoaId);
-                } catch(IllegalArgumentException e){
+                } catch(NumberFormatException e){
                     RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
                 }
@@ -66,6 +66,24 @@ public class Servlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("listagem_dependentes.jsp");
                 rd.forward(request, response);
                 break;
+            }
+            
+            case("page_adicionar_dependente"):{
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId = 0;
+                try{
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch(NumberFormatException e){
+                    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                    rd.forward(request, response);
+                }
+                
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                request.setAttribute("pessoa", pessoa);
+                break;
+                
+                
             }
             
         }
