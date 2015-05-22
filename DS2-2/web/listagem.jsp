@@ -20,6 +20,7 @@
                     <td>${pessoa.sobrenome}</td>
                     <td><a href="Servlet?action=listarDependentes&pessoaid=${pessoa.id}">dependentes</a></td>
                     <td><a href="Servlet?action=excluirPessoa&pessoaid=${pessoa.id}">Excluir</a></td>
+                    <td><a href="Servlet?action=excluirTodosDependentes&pessoaid=${pessoa.id}">Excluir todos os dependentes</a></td>
                 
                 </tr>
             </c:forEach>

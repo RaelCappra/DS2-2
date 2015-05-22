@@ -144,6 +144,32 @@ public class Servlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
             }
+            case ("excluirTodosDependentes"): {
+                
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                List<Dependente> dependentes = pessoa.getDependentes();
+                DependenteDao dependenteDao = new DependenteDao();
+                for(Dependente dependente : dependentes){
+                    dependenteDao.delete(dependente.getId());
+                }
+                //request.setAttribute("action", "listarDependentes");
+                //request.setAttribute("pessoaid", pessoaId);
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("Servlet?action=listarPessoas");
+                rd.forward(request, response);
+                break;
+            }
         }
     }
 
