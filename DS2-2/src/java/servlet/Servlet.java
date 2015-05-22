@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Dependente;
 import model.Pessoa;
+import persistencia.DependenteDao;
 import persistencia.PessoaDao;
 
 /**
@@ -68,23 +69,28 @@ public class Servlet extends HttpServlet {
                 break;
             }
             
-            case("page_adicionar_dependente"):{
+            case("adicionarDependente"):{
                 String paramPessoaId = request.getParameter("pessoaid");
-                long pessoaId = 0;
+                long pessoaId;
                 try{
                     pessoaId = Long.parseLong(paramPessoaId);
                 } catch(NumberFormatException e){
-                    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
                     rd.forward(request, response);
+                    break;
                 }
                 
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                request.setAttribute("pessoa", pessoa);
-                break;
-                
-                
+                DependenteDao dependenteDao = new DependenteDao();
+                String nome = request.getParameter("nome");
+                String sobrenome = request.getParameter("sobrenome");
+                Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
+                dependenteDao.save(novoDependente);
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("Servlet?action=listarDependentes&pessoaid=" + pessoaId);
+                rd.forward(request, response);
+                break;   
             }
+            
             
         }
     }

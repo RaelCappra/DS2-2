@@ -1,5 +1,5 @@
 <%-- 
-    Document   : adicionar_dependente
+    Document   : adicionarDependente
     Created on : 22/05/2015, 17:35:56
     Author     : Aluno
 --%>
@@ -12,13 +12,14 @@
         <title>Adicionar dependente</title>
     </head>
     <body>
-        <form method="post" action="Servlet?action=adicionar_dependente">
+        <form method="post" action="Servlet?action=adicionarDependente">
             <label for="nome">Nome </label>
             <input type="text" name="nome" placeholder="Nome" id="nome"><br>
             <label for="sobrenome">Sobrenome </label>
-            <input type="text" name="nome" placeholder="Sobrenome" id="sobrenome"><br>
+            <input type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome"><br>
             
-            <input type="hidden" name="action" value="adicionar_dependente">
+            <input type="hidden" name="action" value="adicionarDependente">
+            <input type="hidden" name="pessoaid" value="${param.pessoaid}">
             <input type="submit">
         </form>
     </body>
