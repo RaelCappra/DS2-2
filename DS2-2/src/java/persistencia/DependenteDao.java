@@ -7,7 +7,9 @@ package persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,8 +65,32 @@ public class DependenteDao implements Dao<Dependente, Long> {
 
     @Override
     public List<Dependente> listAll() {
-        //TODO: implementar listAll
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String query = "select * from dependente";
+        List<Dependente> result = new ArrayList<>();
+        try {
+            if (conexao == null) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ResultSet rs = ps.executeQuery();
+                
+                while(rs.next()){
+                    Dependente dependente = new Dependente();
+                    dependente.setId(rs.getLong("id"));
+                    dependente.setIdPessoa(rs.getLong("pessoa"));
+                    dependente.setNome(rs.getString("nome"));
+                    dependente.setSobrenome(rs.getString("sobrenome"));
+                    result.add(dependente);
+                }
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi adicionado o dependente
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
     }
 
     @Override
