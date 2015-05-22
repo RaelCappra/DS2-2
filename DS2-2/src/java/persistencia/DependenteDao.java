@@ -74,8 +74,8 @@ public class DependenteDao implements Dao<Dependente, Long> {
             try (Connection connection = conexao.getConnection();
                     PreparedStatement ps = connection.prepareStatement(query)) {
                 ResultSet rs = ps.executeQuery();
-                
-                while(rs.next()){
+
+                while (rs.next()) {
                     Dependente dependente = new Dependente();
                     dependente.setId(rs.getLong("id"));
                     dependente.setIdPessoa(rs.getLong("pessoa"));
@@ -89,7 +89,7 @@ public class DependenteDao implements Dao<Dependente, Long> {
         } catch (Exception ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return result;
     }
 
@@ -105,13 +105,13 @@ public class DependenteDao implements Dao<Dependente, Long> {
                     PreparedStatement ps = connection.prepareStatement(query)) {
                 ps.setLong(1, pk);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     long id = rs.getLong("id");
                     long idPessoa = rs.getLong("pessoa");
                     String nome = rs.getString("nome");
                     String sobrenome = rs.getString("sobrenome");
                     result = new Dependente(id, nome, sobrenome, idPessoa);
-                } else{
+                } else {
                     //TODO: ERRO: não ha dependente com este id
                 }
             } catch (SQLException e) {
@@ -123,4 +123,33 @@ public class DependenteDao implements Dao<Dependente, Long> {
         return result;
     }
 
+    public List<Dependente> listByPessoa(long idPessoa) {
+        String query = "select * from dependente where pessoa = ?";
+        List<Dependente> result = new ArrayList<>();
+        try {
+            if (conexao == null || conexao.getConnection().isClosed()) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(1, idPessoa);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    Dependente dependente = new Dependente();
+                    dependente.setId(rs.getLong("id"));
+                    dependente.setIdPessoa(rs.getLong("pessoa"));
+                    dependente.setNome(rs.getString("nome"));
+                    dependente.setSobrenome(rs.getString("sobrenome"));
+                    result.add(dependente);
+                }
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foram listados os dependentes
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
 }
