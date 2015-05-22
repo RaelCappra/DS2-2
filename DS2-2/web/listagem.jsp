@@ -18,7 +18,8 @@
                 <tr>
                     <td>${pessoa.nome}</td>
                     <td>${pessoa.sobrenome}</td>
-                    <td><a href="listagem_dependentes?pessoaid=${pessoa.id}">dependentes</a></td>
+                    <td><a href="Servlet?action=listarDependentes&pessoaid=${pessoa.id}">
+                            dependentes</a></td>
                 
                 </tr>
             </c:forEach>

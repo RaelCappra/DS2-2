@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Dependente;
 import model.Pessoa;
 import persistencia.PessoaDao;
 
@@ -43,6 +44,26 @@ public class Servlet extends HttpServlet {
                 List<Pessoa> pessoas = pessoaDao.listAll();
                 request.setAttribute("pessoas", pessoas);
                 RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
+                rd.forward(request, response);
+                break;
+            }
+            case("listarDependentes"):{
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId = 0;
+                try{
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch(IllegalArgumentException e){
+                    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                    rd.forward(request, response);
+                }
+                
+                
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                List<Dependente> dependentes = pessoa.getDependentes();
+                request.setAttribute("pessoa", pessoa);
+                request.setAttribute("dependentes", dependentes);
+                RequestDispatcher rd = request.getRequestDispatcher("listagem_dependentes.jsp");
                 rd.forward(request, response);
                 break;
             }
