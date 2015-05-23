@@ -20,6 +20,7 @@
                    id="sobrenome" value="${sobrenome}"><br>
             
             <input type="hidden" name="action" value="editarPessoa">
+            <input type="hidden" name="pessoaid" value="${id}">
             <input type="submit">
         </form>
     </body>
