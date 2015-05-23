@@ -1,4 +1,4 @@
-//TODO: Parar de usar post com os redirects, usar request.setAttr instead
+//TODO: Parar de usar get com os redirects, usar request.setAttr instead
 package servlet;
 
 import java.io.IOException;
