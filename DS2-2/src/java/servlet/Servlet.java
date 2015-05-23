@@ -247,7 +247,38 @@ public class Servlet extends HttpServlet {
                 break;
             }
             
-            
+            case("editarDependente"):{
+                String paramDependenteId = request.getParameter("dependenteid");
+                long dependenteId;
+                try {
+                    dependenteId = Long.parseLong(paramDependenteId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                PessoaDao pessoaDao = new PessoaDao();
+                DependenteDao dependenteDao = new DependenteDao();
+                
+                String nome = request.getParameter("nome");
+                String sobrenome = request.getParameter("sobrenome");
+                
+                dependenteDao.edit(pessoaId, nome, sobrenome);
+                //TODO:Separar trechos de codigo como este em commands(esta copiado lá de cima)
+                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action="
+                        + "listarDependentes&pessoaid=" + pessoaId);
+                rd.forward(request, response);
+                break;
+            }
         }
     }
 
