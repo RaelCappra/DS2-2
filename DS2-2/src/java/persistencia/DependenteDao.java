@@ -152,4 +152,23 @@ public class DependenteDao implements Dao<Dependente, Long> {
 
         return result;
     }
+    public void edit(long id, String nome, String sobrenome){
+        String query = "update dependente set nome = ?, sobrenome = ? where id = ?;";
+        try {
+            if (conexao == null || conexao.getConnection().isClosed()) {
+                conexao = new ConexaoPostgreSQL("localhost", "postgres", "postgres", "postgres");
+            }
+            try (Connection connection = conexao.getConnection();
+                    PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setLong(3, id);
+                ps.setString(1, nome);
+                ps.setString(2, sobrenome);
+                ps.execute();
+            } catch (SQLException e) {
+                //TODO: ERRO: nao foi alterada a pessoa
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
