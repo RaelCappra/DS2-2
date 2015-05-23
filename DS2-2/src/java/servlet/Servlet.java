@@ -1,6 +1,8 @@
 //TODO: Parar de usar get com os redirects, usar request.setAttr instead
+//TODO: Adicionar botao de voltar nas paginas
 package servlet;
 
+import command.ListarPessoasCommand;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -38,11 +40,9 @@ public class Servlet extends HttpServlet {
         String action = request.getParameter("action");
         switch (action) {
             case ("listarPessoas"): {
-                PessoaDao pessoaDao = new PessoaDao();
-                List<Pessoa> pessoas = pessoaDao.listAll();
-                request.setAttribute("pessoas", pessoas);
-                RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
-                rd.forward(request, response);
+                new ListarPessoasCommand().executa(request, response);
+                
+                        
                 break;
             }
             case ("listarDependentes"): {
