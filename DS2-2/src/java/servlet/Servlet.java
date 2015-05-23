@@ -211,7 +211,43 @@ public class Servlet extends HttpServlet {
                 request.setAttribute("pessoas", pessoas);
                 RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
                 rd.forward(request, response);
+                break;
             }
+            
+            case("formEditarDependente"):{
+                String paramDependenteId = request.getParameter("dependenteid");
+                long dependenteId;
+                try {
+                    dependenteId = Long.parseLong(paramDependenteId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                
+                String paramPessoaId = request.getParameter("pessoaid");
+                long pessoaId;
+                try {
+                    pessoaId = Long.parseLong(paramPessoaId);
+                } catch (NumberFormatException e) {
+                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                    rd.forward(request, response);
+                    break;
+                }
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                
+                DependenteDao dependenteDao = new DependenteDao();
+                Dependente dependente = dependenteDao.getById(dependenteId);
+                request.setAttribute("pessoa", pessoa);
+                request.setAttribute("dependente", dependente);
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("form_editar_dependente.jsp");
+                rd.forward(request, response);
+                break;
+            }
+            
+            
         }
     }
 

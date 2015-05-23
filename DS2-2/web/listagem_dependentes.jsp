@@ -21,6 +21,7 @@
                     <td>${dependente.sobrenome}</td> 
                     <td>${dependente.id}</td>
                     <td><a href="Servlet?action=excluirDependente&dependenteid=${dependente.id}&pessoaid=${pessoa.id}">Excluir</a></td>
+                    <td><a href="Servlet?action=formEditarDependente&dependenteid=${dependente.id}&pessoaid=${pessoa.id}">Editar</a></td>
                </tr>
             </c:forEach>
         </table>
