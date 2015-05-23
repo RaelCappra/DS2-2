@@ -266,7 +266,6 @@ public class Servlet extends HttpServlet {
                     rd.forward(request, response);
                     break;
                 }
-                PessoaDao pessoaDao = new PessoaDao();
                 DependenteDao dependenteDao = new DependenteDao();
                 
                 String nome = request.getParameter("nome");
