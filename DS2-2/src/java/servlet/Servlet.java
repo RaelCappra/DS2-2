@@ -202,24 +202,15 @@ public class Servlet extends HttpServlet {
                     rd.forward(request, response);
                     break;
                 }
-                //TODO:implementar
-                /*String paramPessoaId = request.getParameter("pessoaid");
-                long pessoaId;
-                try {
-                    pessoaId = Long.parseLong(paramPessoaId);
-                } catch (NumberFormatException e) {
-                    RequestDispatcher rd = request.getRequestDispatcher("index.html");
-                    rd.forward(request, response);
-                    break;
-                }
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                request.setAttribute("nome", pessoa.getNome());
-                request.setAttribute("sobrenome", pessoa.getSobrenome());
-                RequestDispatcher rd = request.getRequestDispatcher
-                    ("form_editar_pessoa.jsp");
+                String nome = request.getParameter("nome");
+                String sobrenome = request.getParameter("sobrenome");
+                
+                pessoaDao.edit(pessoaId, nome, sobrenome);
+                //TODO:Separar trechos de codigo como este em commands(esta copiado lá de cima)
+                List<Pessoa> pessoas = pessoaDao.listAll();
+                request.setAttribute("pessoas", pessoas);
+                RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
                 rd.forward(request, response);
-                break;*/
             }
         }
     }
