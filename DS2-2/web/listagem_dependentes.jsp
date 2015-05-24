@@ -27,6 +27,8 @@
                </tr>
             </c:forEach>
         </table>
+            <input type="hidden" name="action" value="excluirDependentesSelecionados">
+            <input type="hidden" name="pessoaid" value="${pessoa.id}"><!--TODO:Isto é necessário?-->
             <input type="submit" value="Excluir selecionados">
         </form>
         <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">Adicionar dependente</a>

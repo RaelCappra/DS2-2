@@ -106,6 +106,24 @@ public class Servlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
             }
+            
+            case ("excluirDependentesSelecionados"): {
+                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                String[] idsDosDependentes = request.getParameterValues("dependenteSelecionado");
+                PessoaDao pessoaDao = new PessoaDao();
+                Pessoa pessoa = pessoaDao.getById(pessoaId);
+                List<Dependente> dependentes = pessoa.getDependentes();
+                DependenteDao dependenteDao = new DependenteDao();
+                for (Dependente dependente : dependentes) {
+                    dependenteDao.delete(dependente.getId());
+                }
+                //request.setAttribute("action", "listarDependentes");
+                //request.setAttribute("pessoaid", pessoaId);
+                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
+                rd.forward(request, response);
+                break;
+            }
+            
             case ("excluirTodosDependentes"): {
                 long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
@@ -185,14 +203,28 @@ public class Servlet extends HttpServlet {
 
     private long getLongParameterOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
         String paramValue = request.getParameter(param);
-        long pessoaId = 0;
+        long result = 0;
         try {
-            pessoaId = Long.parseLong(paramValue);
+            result = Long.parseLong(paramValue);
         } catch (NumberFormatException e) {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
-        return pessoaId;
+        return result;
+    }
+    private long[] getLongParameterValuesOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
+        String[] paramValues = request.getParameterValues(param);
+        long[] result = new long[paramValues.length];
+        try {
+            for(int i = 0; i < paramValues.length; i++){
+                String paramValue = paramValues[i];
+                result[i] = Long.parseLong(paramValue);
+            }
+        } catch (NumberFormatException e) {
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
+        return result;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
