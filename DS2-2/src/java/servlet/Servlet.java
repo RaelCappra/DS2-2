@@ -4,6 +4,7 @@ package servlet;
 
 import command.AdicionarDependenteCommand;
 import command.AdicionarPessoaCommand;
+import command.ExcluirPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
@@ -66,11 +67,7 @@ public class Servlet extends HttpServlet {
                 break;
             }
             case ("excluirPessoa"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                PessoaDao pessoaDao = new PessoaDao();
-                pessoaDao.delete(pessoaId);
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
-                rd.forward(request, response);
+                new ExcluirPessoaCommand().executa(request, response);
                 break;
             }
 
