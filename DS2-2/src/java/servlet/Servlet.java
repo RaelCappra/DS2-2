@@ -2,6 +2,7 @@
 //TODO: Adicionar botao de voltar nas paginas
 package servlet;
 
+import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,20 +49,12 @@ public class Servlet extends HttpServlet {
                 break;
             }
             case ("listarDependentes"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                List<Dependente> dependentes = pessoa.getDependentes();
-                request.setAttribute("pessoa", pessoa);
-                request.setAttribute("dependentes", dependentes);
-                RequestDispatcher rd = request.getRequestDispatcher("listagem_dependentes.jsp");
-                rd.forward(request, response);
+                new ListarDependentesCommand().executa(request, response);
                 break;
             }
 
             case ("adicionarDependente"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
                 DependenteDao dependenteDao = new DependenteDao();
                 String nome = request.getParameter("nome");
@@ -85,7 +78,7 @@ public class Servlet extends HttpServlet {
                 break;
             }
             case ("excluirPessoa"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
                 PessoaDao pessoaDao = new PessoaDao();
                 pessoaDao.delete(pessoaId);
                 RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
@@ -94,9 +87,9 @@ public class Servlet extends HttpServlet {
             }
 
             case ("excluirDependente"): {
-                long dependenteId = getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+                long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
 
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
                 DependenteDao dependenteDao = new DependenteDao();
                 dependenteDao.delete(dependenteId);
@@ -108,9 +101,9 @@ public class Servlet extends HttpServlet {
             }
             
             case ("excluirDependentesSelecionados"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
                 long[] idsDosDependentes = 
-                        getLongParameterValuesOrRedirectToIndex(request, response, 
+                        HttpUtil.getLongParameterValuesOrRedirectToIndex(request, response, 
                                 "dependenteSelecionado");
                 
                 DependenteDao dependenteDao = new DependenteDao();
@@ -126,7 +119,7 @@ public class Servlet extends HttpServlet {
             }
             
             case ("excluirTodosDependentes"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
                 PessoaDao pessoaDao = new PessoaDao();
                 Pessoa pessoa = pessoaDao.getById(pessoaId);
@@ -143,7 +136,7 @@ public class Servlet extends HttpServlet {
             }
 
             case ("formEditarPessoa"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
                 PessoaDao pessoaDao = new PessoaDao();
                 Pessoa pessoa = pessoaDao.getById(pessoaId);
                 request.setAttribute("nome", pessoa.getNome());
@@ -154,7 +147,7 @@ public class Servlet extends HttpServlet {
                 break;
             }
             case ("editarPessoa"): {
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
                 PessoaDao pessoaDao = new PessoaDao();
                 String nome = request.getParameter("nome");
                 String sobrenome = request.getParameter("sobrenome");
@@ -169,8 +162,8 @@ public class Servlet extends HttpServlet {
             }
 
             case ("formEditarDependente"): {
-                long dependenteId = getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
                 PessoaDao pessoaDao = new PessoaDao();
                 Pessoa pessoa = pessoaDao.getById(pessoaId);
@@ -185,8 +178,8 @@ public class Servlet extends HttpServlet {
             }
 
             case ("editarDependente"): {
-                long dependenteId = getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-                long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+                long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
                 DependenteDao dependenteDao = new DependenteDao();
 
                 String nome = request.getParameter("nome");
@@ -202,35 +195,6 @@ public class Servlet extends HttpServlet {
         }
     }
 
-    private long getLongParameterOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
-        String paramValue = request.getParameter(param);
-        long result = 0;
-        try {
-            result = Long.parseLong(paramValue);
-        } catch (NumberFormatException e) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        }
-        return result;
-    }
-    private long[] getLongParameterValuesOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
-        String[] paramValues = request.getParameterValues(param);
-        if (paramValues == null || paramValues.length == 0){
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        }
-        long[] result = new long[paramValues.length];
-        try {
-            for(int i = 0; i < paramValues.length; i++){
-                String paramValue = paramValues[i];
-                result[i] = Long.parseLong(paramValue);
-            }
-        } catch (NumberFormatException e) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-            rd.forward(request, response);
-        }
-        return result;
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
