@@ -4,6 +4,7 @@ package servlet;
 
 import command.AdicionarDependenteCommand;
 import command.AdicionarPessoaCommand;
+import command.EditarDependenteCommand;
 import command.EditarPessoaCommand;
 import command.ExcluirDependenteCommand;
 import command.ExcluirDependentesSelecionadosCommand;
@@ -117,18 +118,7 @@ public class Servlet extends HttpServlet {
             }
 
             case ("editarDependente"): {
-                long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                DependenteDao dependenteDao = new DependenteDao();
-
-                String nome = request.getParameter("nome");
-                String sobrenome = request.getParameter("sobrenome");
-
-                dependenteDao.edit(dependenteId, nome, sobrenome);
-                //TODO:Separar trechos de codigo como este em commands(esta copiado lá de cima)
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action="
-                        + "listarDependentes&pessoaid=" + pessoaId);
-                rd.forward(request, response);
+                new EditarDependenteCommand().executa(request, response);
                 break;
             }
         }
