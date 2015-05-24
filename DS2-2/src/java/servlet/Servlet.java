@@ -4,10 +4,12 @@ package servlet;
 
 import command.AdicionarDependenteCommand;
 import command.AdicionarPessoaCommand;
+import command.EditarPessoaCommand;
 import command.ExcluirDependenteCommand;
 import command.ExcluirDependentesSelecionadosCommand;
 import command.ExcluirPessoaCommand;
 import command.ExcluirTodosDependentesCommand;
+import command.FormEditarPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
@@ -94,17 +96,7 @@ public class Servlet extends HttpServlet {
                 break;
             }
             case ("editarPessoa"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                PessoaDao pessoaDao = new PessoaDao();
-                String nome = request.getParameter("nome");
-                String sobrenome = request.getParameter("sobrenome");
-
-                pessoaDao.edit(pessoaId, nome, sobrenome);
-                //TODO:Separar trechos de codigo como este em commands(esta copiado lá de cima)
-                List<Pessoa> pessoas = pessoaDao.listAll();
-                request.setAttribute("pessoas", pessoas);
-                RequestDispatcher rd = request.getRequestDispatcher("listagem.jsp");
-                rd.forward(request, response);
+                new EditarPessoaCommand().executa(request, response);
                 break;
             }
 
