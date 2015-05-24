@@ -12,9 +12,10 @@
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
         
         <link rel="stylesheet" href="css/meyer css-reset.css">
-        <link rel="stylesheet" href="css/default.css">
+        
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/default.css">
         
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -69,7 +70,7 @@
                     <br>
                 </c:when>
                 <c:otherwise>
-                    <h1>Você não cadastrou pessoas</h1>
+                    <h3>Você não cadastrou pessoas</h3>
                 </c:otherwise>
             </c:choose>
             <a href="adicionar_pessoa.jsp?">
