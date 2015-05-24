@@ -1,4 +1,3 @@
-//TODO: Parar de usar get com os redirects, usar request.setAttr instead
 //TODO: Adicionar botao de voltar nas paginas
 package servlet;
 
