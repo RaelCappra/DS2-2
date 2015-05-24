@@ -3,6 +3,7 @@ package servlet;
 
 import command.AdicionarDependenteCommand;
 import command.AdicionarPessoaCommand;
+import command.Command;
 import command.EditarDependenteCommand;
 import command.EditarPessoaCommand;
 import command.ExcluirDependenteCommand;
@@ -14,19 +15,14 @@ import command.FormEditarPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Dependente;
-import model.Pessoa;
-import persistencia.DependenteDao;
-import persistencia.PessoaDao;
 
 /**
  *
@@ -48,69 +44,27 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
+        Map<String, Command> actions = new HashMap<String, Command>();
+        actions.put("listarPessoas", new ListarPessoasCommand());
+        actions.put("listarDependentes", new ListarDependentesCommand());
+        actions.put("adicionarPessoa", new AdicionarPessoaCommand());
+        actions.put("adicionarDependente", new AdicionarDependenteCommand());
+        actions.put("excluirPessoa", new ExcluirPessoaCommand());
+        actions.put("excluirDependente", new ExcluirDependenteCommand());
+        actions.put("excluirDependentesSelecionados", new ExcluirDependentesSelecionadosCommand());
+        actions.put("excluirTodosDependentes", new ExcluirTodosDependentesCommand());
+        actions.put("editarPessoa", new EditarPessoaCommand());
+        actions.put("editarDependente", new EditarDependenteCommand());
+        actions.put("formEditarPessoa", new FormEditarPessoaCommand());
+        actions.put("formEditarDependente", new FormEditarDependenteCommand());
+        
         if(action == null){
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.forward(request, response);
             return;
         }
-        switch (action) {
-            case ("listarPessoas"): {
-                new ListarPessoasCommand().executa(request, response);
-                break;
-            }
-            case ("listarDependentes"): {
-                new ListarDependentesCommand().executa(request, response);
-                break;
-            }
-
-            case ("adicionarDependente"): {
-                new AdicionarDependenteCommand().executa(request, response);
-                break;
-            }
-
-            case ("adicionarPessoa"): {
-                new AdicionarPessoaCommand().executa(request, response);
-                break;
-            }
-            case ("excluirPessoa"): {
-                new ExcluirPessoaCommand().executa(request, response);
-                break;
-            }
-
-            case ("excluirDependente"): {
-                new ExcluirDependenteCommand().executa(request, response);
-                break;
-            }
-            
-            case ("excluirDependentesSelecionados"): {
-                new ExcluirDependentesSelecionadosCommand().executa(request, response);
-                break;
-            }
-            
-            case ("excluirTodosDependentes"): {
-                new ExcluirTodosDependentesCommand().executa(request, response);
-                break;
-            }
-
-            case ("formEditarPessoa"): {
-                new FormEditarPessoaCommand().executa(request, response);
-                break;
-            }
-            case ("editarPessoa"): {
-                new EditarPessoaCommand().executa(request, response);
-                break;
-            }
-
-            case ("formEditarDependente"): {
-                new FormEditarDependenteCommand().executa(request, response);
-                break;
-            }
-
-            case ("editarDependente"): {
-                new EditarDependenteCommand().executa(request, response);
-                break;
-            }
-        }
+        
+        actions.get(action).executa(request, response);
     }
 
 
