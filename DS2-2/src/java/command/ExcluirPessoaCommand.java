@@ -24,8 +24,7 @@ public class ExcluirPessoaCommand implements Command {
         long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
         PessoaDao pessoaDao = new PessoaDao();
         pessoaDao.delete(pessoaId);
-        RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
-        rd.forward(request, response);
+        new ListarPessoasCommand().executa(request, response);
     }
 
 }
