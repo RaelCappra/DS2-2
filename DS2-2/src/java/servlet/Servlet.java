@@ -7,6 +7,7 @@ import command.AdicionarPessoaCommand;
 import command.ExcluirDependenteCommand;
 import command.ExcluirDependentesSelecionadosCommand;
 import command.ExcluirPessoaCommand;
+import command.ExcluirTodosDependentesCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
@@ -89,14 +90,7 @@ public class Servlet extends HttpServlet {
             }
 
             case ("formEditarPessoa"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                request.setAttribute("nome", pessoa.getNome());
-                request.setAttribute("sobrenome", pessoa.getSobrenome());
-                request.setAttribute("id", pessoa.getId());
-                RequestDispatcher rd = request.getRequestDispatcher("form_editar_pessoa.jsp");
-                rd.forward(request, response);
+                new FormEditarPessoaCommand().executa(request, response);
                 break;
             }
             case ("editarPessoa"): {
