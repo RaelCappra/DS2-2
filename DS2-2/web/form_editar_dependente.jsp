@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/meyer css-reset.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editar dependente de ${pessoa.nome}</title>
     </head>
