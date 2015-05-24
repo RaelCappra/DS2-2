@@ -38,6 +38,10 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
+        if(action == null){
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                rd.forward(request, response);
+        }
         switch (action) {
             case ("listarPessoas"): {
                 new ListarPessoasCommand().executa(request, response);
