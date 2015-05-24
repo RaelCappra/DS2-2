@@ -10,6 +10,7 @@ import command.ExcluirDependenteCommand;
 import command.ExcluirDependentesSelecionadosCommand;
 import command.ExcluirPessoaCommand;
 import command.ExcluirTodosDependentesCommand;
+import command.FormEditarDependenteCommand;
 import command.FormEditarPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
@@ -102,18 +103,7 @@ public class Servlet extends HttpServlet {
             }
 
             case ("formEditarDependente"): {
-                long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-
-                DependenteDao dependenteDao = new DependenteDao();
-                Dependente dependente = dependenteDao.getById(dependenteId);
-                request.setAttribute("pessoa", pessoa);
-                request.setAttribute("dependente", dependente);
-                RequestDispatcher rd = request.getRequestDispatcher("form_editar_dependente.jsp");
-                rd.forward(request, response);
+                new FormEditarDependenteCommand().executa(request, response);
                 break;
             }
 
