@@ -35,7 +35,7 @@ public class FormEditarDependenteCommand implements Command {
         request.setAttribute("pessoa", pessoa);
         request.setAttribute("dependente", dependente);
         RequestDispatcher rd = request.getRequestDispatcher("form_editar_dependente.jsp");
-        rd.forward(request, response);
+        rd.forward(request, response);  
     }
 
 }
