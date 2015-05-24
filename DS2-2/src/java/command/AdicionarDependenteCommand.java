@@ -29,9 +29,7 @@ public class AdicionarDependenteCommand implements Command {
         String sobrenome = request.getParameter("sobrenome");
         Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
         dependenteDao.save(novoDependente);
-        RequestDispatcher rd = request.getRequestDispatcher
-        ("Servlet?action=listarDependentes&pessoaid=" + pessoaId);
-        rd.forward(request, response);
+        new ListarDependentesCommand().executa(request, response);
     }
 
 }
