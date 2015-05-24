@@ -2,6 +2,8 @@
 //TODO: Adicionar botao de voltar nas paginas
 package servlet;
 
+import command.AdicionarDependenteCommand;
+import command.AdicionarPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
 import java.io.IOException;
@@ -56,19 +58,11 @@ public class Servlet extends HttpServlet {
 
             case ("adicionarDependente"): {
                 new AdicionarDependenteCommand().executa(request, response);
-                
                 break;
             }
 
             case ("adicionarPessoa"): {
-
-                PessoaDao pessoaDao = new PessoaDao();
-                String nome = request.getParameter("nome");
-                String sobrenome = request.getParameter("sobrenome");
-                Pessoa novaPessoa = new Pessoa(0, nome, sobrenome, new ArrayList<Dependente>());
-                pessoaDao.save(novaPessoa);
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
-                rd.forward(request, response);
+                new AdicionarPessoaCommand().executa(request, response);
                 break;
             }
             case ("excluirPessoa"): {
