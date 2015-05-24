@@ -28,8 +28,7 @@ public class AdicionarPessoaCommand implements Command {
         String sobrenome = request.getParameter("sobrenome");
         Pessoa novaPessoa = new Pessoa(0, nome, sobrenome, new ArrayList<Dependente>());
         pessoaDao.save(novaPessoa);
-        RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
-        rd.forward(request, response);
+        new ListarPessoasCommand().executa(request, response);
     }
 
 }
