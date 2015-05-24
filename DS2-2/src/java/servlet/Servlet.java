@@ -84,19 +84,7 @@ public class Servlet extends HttpServlet {
             }
             
             case ("excluirTodosDependentes"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                List<Dependente> dependentes = pessoa.getDependentes();
-                DependenteDao dependenteDao = new DependenteDao();
-                for (Dependente dependente : dependentes) {
-                    dependenteDao.delete(dependente.getId());
-                }
-                //request.setAttribute("action", "listarDependentes");
-                //request.setAttribute("pessoaid", pessoaId);
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
-                rd.forward(request, response);
+                new ExcluirTodosDependentesCommand().executa(request, response);
                 break;
             }
 
