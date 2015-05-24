@@ -9,52 +9,59 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/meyer css-reset.css">
+        <link rel="stylesheet" href="css/default.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listagem de pessoas</title>
     </head>
     <body>
         <div class="container-fluid">
             <table class="table-condensed table-hover">
-                <tr>
-                    <th>Nome</th>
-                    <th>Sobrenome</th>
-                    <th>Dependentes</th>
-                    <th class="warning">Excluir pessoa</th>
-                    <th>Excluir todos os depedentes</th>
-                    <th>Editar</th>
-                </tr>
+                <thead>
+                    
+                    <tr class="active">
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Dependentes</th>
+                        <th class="warning">Excluir pessoa</th>
+                        <th>Excluir todos os depedentes</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
                 <c:forEach items="${pessoas}" var="pessoa">
                     <tr>
                         <p>
-                        <td>
+                        <td align="center">
                             <p>${pessoa.nome}</p>
                         </td>
-                        <td>
+                        <td align="center">
                             <p>${pessoa.sobrenome}</p>
                         </td>
-                        <td>
+                        <td align="center">
                             <a href="Servlet?action=listarDependentes&pessoaid=${pessoa.id}">
                                 <p>dependentes</p>
                             </a>
                         </td>
-                        <td class="warning"><a class="btn" href="Servlet?action=excluirPessoa&pessoaid=${pessoa.id}">
+                        <td align="center" class="warning"><a href="Servlet?action=excluirPessoa&pessoaid=${pessoa.id}">
                                 <span class="glyphicon glyphicon-trash" title="Excluir"/></a>
                         </td>
-                        <td>
+                        <td align="center">
                             <a href="Servlet?action=excluirTodosDependentes&pessoaid=${pessoa.id}">
                                 <span class="glyphicon glyphicon-trash" title="Excluir todos os dependentes"/>
                             </a></td>
-                        <td>
+                        <td align="center">
                             <a href="Servlet?action=formEditarPessoa&pessoaid=${pessoa.id}">
                                 <span class="glyphicon glyphicon-pencil" title="Editar"/></a>
                         </td>
                     </tr>
                 </c:forEach>
             </table>
-          <a href="adicionar_pessoa.jsp?">Adicionar pessoa</a>  
+            <br>
+          <a href="adicionar_pessoa.jsp?">
+              <span class="glyphicon glyphicon-plus" title="Editar"/>Adicionar pessoa</a>  
         </div>
     </body>
 </html>
