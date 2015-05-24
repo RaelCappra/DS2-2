@@ -109,17 +109,18 @@ public class Servlet extends HttpServlet {
             
             case ("excluirDependentesSelecionados"): {
                 long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                String[] idsDosDependentes = request.getParameterValues("dependenteSelecionado");
-                PessoaDao pessoaDao = new PessoaDao();
-                Pessoa pessoa = pessoaDao.getById(pessoaId);
-                List<Dependente> dependentes = pessoa.getDependentes();
+                long[] idsDosDependentes = 
+                        getLongParameterValuesOrRedirectToIndex(request, response, 
+                                "dependenteSelecionado");
+                
                 DependenteDao dependenteDao = new DependenteDao();
-                for (Dependente dependente : dependentes) {
-                    dependenteDao.delete(dependente.getId());
+                for (long id : idsDosDependentes) {
+                    dependenteDao.delete(id);
                 }
                 //request.setAttribute("action", "listarDependentes");
                 //request.setAttribute("pessoaid", pessoaId);
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarPessoas");
+                RequestDispatcher rd = request.getRequestDispatcher
+                    ("Servlet?action=listarDependentes&pessoaid="+pessoaId);
                 rd.forward(request, response);
                 break;
             }
@@ -214,6 +215,10 @@ public class Servlet extends HttpServlet {
     }
     private long[] getLongParameterValuesOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
         String[] paramValues = request.getParameterValues(param);
+        if (paramValues == null || paramValues.length == 0){
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        }
         long[] result = new long[paramValues.length];
         try {
             for(int i = 0; i < paramValues.length; i++){
