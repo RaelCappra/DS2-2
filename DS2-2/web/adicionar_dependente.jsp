@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/default.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adicionar dependente</title>
     </head>

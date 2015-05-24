@@ -8,19 +8,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/default.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adicionar Pessoa</title>
     </head>
     <body>
-        <form method="post" action="Servlet">
-            <label for="nome">Nome </label>
-            <input type="text" name="nome" placeholder="Nome" id="nome"><br>
-            <label for="sobrenome">Sobrenome </label>
-            <input type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome"><br>
-            
-            <input type="hidden" name="action" value="adicionarPessoa">
-            <input type="submit">
-        </form>
+        <div class="container">
+            <form role="form" method="post" action="Servlet">
+                <div class="form-group">                
+                    <label for="nome">Nome </label>
+                    <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome"><br>
+                </div>                
+                <div class="form-group">
+                    <label for="sobrenome">Sobrenome </label>
+                    <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome"><br>
+                </div>
+                <input class="form-control" type="hidden" name="action" value="adicionarPessoa">
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div>
     </body>
 </html>
