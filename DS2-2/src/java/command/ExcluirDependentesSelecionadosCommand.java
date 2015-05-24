@@ -9,21 +9,26 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import persistencia.PessoaDao;
+import persistencia.DependenteDao;
 import servlet.HttpUtil;
 
 /**
  *
  * @author Rael
  */
-public class ExcluirPessoaCommand implements Command {
+public class ExcluirDependentesSelecionadosCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-        PessoaDao pessoaDao = new PessoaDao();
-        pessoaDao.delete(pessoaId);
-        new ListarPessoasCommand().executa(request, response);
+        long[] idsDosDependentes
+                = HttpUtil.getLongParameterValuesOrRedirectToIndex(request, response,
+                        "dependenteSelecionado");
+
+        DependenteDao dependenteDao = new DependenteDao();
+        for (long id : idsDosDependentes) {
+            dependenteDao.delete(id);
+        }
+        new ListarDependentesCommand().executa(request, response);
     }
 
 }

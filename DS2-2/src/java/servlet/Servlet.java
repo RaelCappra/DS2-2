@@ -5,6 +5,7 @@ package servlet;
 import command.AdicionarDependenteCommand;
 import command.AdicionarPessoaCommand;
 import command.ExcluirDependenteCommand;
+import command.ExcluirDependentesSelecionadosCommand;
 import command.ExcluirPessoaCommand;
 import command.ListarDependentesCommand;
 import command.ListarPessoasCommand;
@@ -78,20 +79,7 @@ public class Servlet extends HttpServlet {
             }
             
             case ("excluirDependentesSelecionados"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-                long[] idsDosDependentes = 
-                        HttpUtil.getLongParameterValuesOrRedirectToIndex(request, response, 
-                                "dependenteSelecionado");
-                
-                DependenteDao dependenteDao = new DependenteDao();
-                for (long id : idsDosDependentes) {
-                    dependenteDao.delete(id);
-                }
-                //request.setAttribute("action", "listarDependentes");
-                //request.setAttribute("pessoaid", pessoaId);
-                RequestDispatcher rd = request.getRequestDispatcher
-                    ("Servlet?action=listarDependentes&pessoaid="+pessoaId);
-                rd.forward(request, response);
+                new ExcluirDependentesSelecionadosCommand().executa(request, response);
                 break;
             }
             
