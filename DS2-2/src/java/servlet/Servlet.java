@@ -42,6 +42,7 @@ public class Servlet extends HttpServlet {
         if(action == null){
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.forward(request, response);
+            return;
         }
         switch (action) {
             case ("listarPessoas"): {
@@ -54,15 +55,8 @@ public class Servlet extends HttpServlet {
             }
 
             case ("adicionarDependente"): {
-                long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-
-                DependenteDao dependenteDao = new DependenteDao();
-                String nome = request.getParameter("nome");
-                String sobrenome = request.getParameter("sobrenome");
-                Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
-                dependenteDao.save(novoDependente);
-                RequestDispatcher rd = request.getRequestDispatcher("Servlet?action=listarDependentes&pessoaid=" + pessoaId);
-                rd.forward(request, response);
+                new AdicionarDependenteCommand().executa(request, response);
+                
                 break;
             }
 
