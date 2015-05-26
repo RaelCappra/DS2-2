@@ -25,7 +25,7 @@
             <input type="text" name="sobrenome" placeholder="Sobrenome"
                    id="sobrenome" value="${dependente.sobrenome}"><br>
             
-            <input type="hidden" name="action" value="editarPessoa">
+            <input type="hidden" name="action" value="editarDependente">
             <input type="hidden" name="dependenteid" value="${dependente.id}">
             <input type="hidden" name="pessoaid" value="${pessoa.id}">
             <input type="submit">
