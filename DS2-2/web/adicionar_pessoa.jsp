@@ -43,26 +43,7 @@
             </a>
         </div>
     </body>
-    <script type="text/javascript">
-        jQuery.validator.addMethod("lettersandspacesonly", function(value, element) {
-        return this.optional(element) || /^[a-z," "]+$/i.test(value);
-        }, "Somente letras e espacos");
-
-
-        jQuery.validator.addMethod("lettersonly", function(value, element) {
-          return this.optional(element) || /^[a-z]+$/i.test(value);
-        }, "Somente letras"); 
-
-
-        $("#form").validate({
-            rules: {
-                nome:{
-                    lettersonly: true
-                },
-                sobrenome:{
-                    lettersandspacesonly: true
-                }
-            }
-        });
+    <script type="text/javascript" src="js/valida.js">
+        
     </script>
 </html>
