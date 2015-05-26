@@ -17,18 +17,41 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class HttpUtil {
 
-    public static long getLongParameterOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
+    /**
+     *
+     * @param request
+     * @param response
+     * @param param
+     * @return o valor tipo long do parametro, ou null, caso a string passada
+     * seja invalida. Neste caso, tera ocorrido o redirecionamento para o index,
+     * e nao sera mais possivel utilizar @request para redirecionamentos
+     * @throws IOException
+     * @throws ServletException
+     */
+    public static Long getLongParameterOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
         String paramValue = request.getParameter(param);
-        long result = 0;
+        long result;
         try {
             result = Long.parseLong(paramValue);
         } catch (NumberFormatException e) {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
+            return null;
         }
         return result;
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param param
+     * @return um array com os multiplo valores tipo long do parametro, ou null, caso a string passada
+     * seja invalida. Neste caso, tera ocorrido o redirecionamento para o index,
+     * e nao sera mais possivel utilizar @request para redirecionamentos
+     * @throws IOException
+     * @throws ServletException
+     */
     public static long[] getLongParameterValuesOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
         String[] paramValues = request.getParameterValues(param);
         if (paramValues == null || paramValues.length == 0) {

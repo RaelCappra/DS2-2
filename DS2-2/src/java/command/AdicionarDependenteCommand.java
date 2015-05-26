@@ -23,13 +23,15 @@ public class AdicionarDependenteCommand implements Command {
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-
-        DependenteDao dependenteDao = new DependenteDao();
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
-        Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
-        dependenteDao.save(novoDependente);
-        new ListarDependentesCommand().executa(request, response);
+        
+        if (pessoaId >= 0) {
+            DependenteDao dependenteDao = new DependenteDao();
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            Dependente novoDependente = new Dependente(0, nome, sobrenome, pessoaId);
+            dependenteDao.save(novoDependente);
+            new ListarDependentesCommand().executa(request, response);
+        }
     }
 
 }
