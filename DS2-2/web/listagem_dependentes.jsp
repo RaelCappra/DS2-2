@@ -62,6 +62,14 @@
                 </button>
 
             </a>
+            
+            <a href="Servlet?action=listarPessoas">
+                <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-backward" title="Voltar"/>
+                    <span>Voltar</span>
+                </button>
+
+            </a>
         </div>
     </body>
 
