@@ -55,6 +55,16 @@
                     <span>Excluir selecionados</span>
                 </button>
             </form>
+            
+                <script type="text/javascript">
+                    $('#form').validate({
+                        rules: {
+                            dependenteSelecionado:{
+                                required: true
+                            }
+                        }
+                    });
+                </script>
 </c:if>
 
             <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">
