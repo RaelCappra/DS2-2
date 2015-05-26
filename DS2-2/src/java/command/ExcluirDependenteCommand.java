@@ -20,10 +20,12 @@ public class ExcluirDependenteCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-        DependenteDao dependenteDao = new DependenteDao();
-        dependenteDao.delete(dependenteId);
-        new ListarDependentesCommand().executa(request, response);
+        Long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+        if (dependenteId != null) {
+            DependenteDao dependenteDao = new DependenteDao();
+            dependenteDao.delete(dependenteId);
+            new ListarDependentesCommand().executa(request, response);
+        }
     }
 
 }

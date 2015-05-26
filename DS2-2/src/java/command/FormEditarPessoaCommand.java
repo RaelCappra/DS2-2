@@ -22,14 +22,16 @@ public class FormEditarPessoaCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-        PessoaDao pessoaDao = new PessoaDao();
-        Pessoa pessoa = pessoaDao.getById(pessoaId);
-        request.setAttribute("nome", pessoa.getNome());
-        request.setAttribute("sobrenome", pessoa.getSobrenome());
-        request.setAttribute("id", pessoa.getId());
-        RequestDispatcher rd = request.getRequestDispatcher("form_editar_pessoa.jsp");
-        rd.forward(request, response);
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        if (pessoaId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            Pessoa pessoa = pessoaDao.getById(pessoaId);
+            request.setAttribute("nome", pessoa.getNome());
+            request.setAttribute("sobrenome", pessoa.getSobrenome());
+            request.setAttribute("id", pessoa.getId());
+            RequestDispatcher rd = request.getRequestDispatcher("form_editar_pessoa.jsp");
+            rd.forward(request, response);
+        }
     }
 
 }

@@ -20,10 +20,12 @@ public class ExcluirPessoaCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-        PessoaDao pessoaDao = new PessoaDao();
-        pessoaDao.delete(pessoaId);
-        new ListarPessoasCommand().executa(request, response);
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        if (pessoaId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            pessoaDao.delete(pessoaId);
+            new ListarPessoasCommand().executa(request, response);
+        }
     }
 
 }

@@ -20,14 +20,16 @@ public class EditarDependenteCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-        DependenteDao dependenteDao = new DependenteDao();
-
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
-
-        dependenteDao.edit(dependenteId, nome, sobrenome);
-        new ListarDependentesCommand().executa(request, response);
+        Long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+        if (dependenteId != null) {
+            DependenteDao dependenteDao = new DependenteDao();
+            
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
+            
+            dependenteDao.edit(dependenteId, nome, sobrenome);
+            new ListarDependentesCommand().executa(request, response);
+        }
     }
 
 }

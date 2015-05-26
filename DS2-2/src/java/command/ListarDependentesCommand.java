@@ -24,15 +24,17 @@ public class ListarDependentesCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        Long pessoaId = getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
-        PessoaDao pessoaDao = new PessoaDao();
-        Pessoa pessoa = pessoaDao.getById(pessoaId);
-        List<Dependente> dependentes = pessoa.getDependentes();
-        request.setAttribute("pessoa", pessoa);
-        request.setAttribute("dependentes", dependentes);
-        RequestDispatcher rd = request.getRequestDispatcher("listagem_dependentes.jsp");
-        rd.forward(request, response);
+        if (pessoaId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            Pessoa pessoa = pessoaDao.getById(pessoaId);
+            List<Dependente> dependentes = pessoa.getDependentes();
+            request.setAttribute("pessoa", pessoa);
+            request.setAttribute("dependentes", dependentes);
+            RequestDispatcher rd = request.getRequestDispatcher("listagem_dependentes.jsp");
+            rd.forward(request, response);
+        }
     }
 
 }

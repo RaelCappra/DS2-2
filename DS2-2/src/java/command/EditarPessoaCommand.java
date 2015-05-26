@@ -20,13 +20,15 @@ public class EditarPessoaCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
-        PessoaDao pessoaDao = new PessoaDao();
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        if (pessoaId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            String nome = request.getParameter("nome");
+            String sobrenome = request.getParameter("sobrenome");
 
-        pessoaDao.edit(pessoaId, nome, sobrenome);
-        new ListarPessoasCommand().executa(request, response);
+            pessoaDao.edit(pessoaId, nome, sobrenome);
+            new ListarPessoasCommand().executa(request, response);
+        }
     }
 
 }

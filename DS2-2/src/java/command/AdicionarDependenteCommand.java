@@ -22,9 +22,9 @@ public class AdicionarDependenteCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
         
-        if (pessoaId >= 0) {
+        if (pessoaId != null) {
             DependenteDao dependenteDao = new DependenteDao();
             String nome = request.getParameter("nome");
             String sobrenome = request.getParameter("sobrenome");

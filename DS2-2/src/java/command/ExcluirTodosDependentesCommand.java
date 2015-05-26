@@ -25,16 +25,18 @@ public class ExcluirTodosDependentesCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
-        PessoaDao pessoaDao = new PessoaDao();
-        Pessoa pessoa = pessoaDao.getById(pessoaId);
-        List<Dependente> dependentes = pessoa.getDependentes();
-        DependenteDao dependenteDao = new DependenteDao();
-        for (Dependente dependente : dependentes) {
-            dependenteDao.delete(dependente.getId());
+        if (pessoaId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            Pessoa pessoa = pessoaDao.getById(pessoaId);
+            List<Dependente> dependentes = pessoa.getDependentes();
+            DependenteDao dependenteDao = new DependenteDao();
+            for (Dependente dependente : dependentes) {
+                dependenteDao.delete(dependente.getId());
+            }
+            new ListarPessoasCommand().executa(request, response);
         }
-        new ListarPessoasCommand().executa(request, response);
     }
 
 }

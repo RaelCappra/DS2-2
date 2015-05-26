@@ -24,18 +24,21 @@ public class FormEditarDependenteCommand implements Command {
 
     @Override
     public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
-        long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
+        Long dependenteId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "dependenteid");
+        Long pessoaId = HttpUtil.getLongParameterOrRedirectToIndex(request, response, "pessoaid");
 
-        PessoaDao pessoaDao = new PessoaDao();
-        Pessoa pessoa = pessoaDao.getById(pessoaId);
-
-        DependenteDao dependenteDao = new DependenteDao();
-        Dependente dependente = dependenteDao.getById(dependenteId);
-        request.setAttribute("pessoa", pessoa);
-        request.setAttribute("dependente", dependente);
-        RequestDispatcher rd = request.getRequestDispatcher("form_editar_dependente.jsp");
-        rd.forward(request, response);  
+        if (pessoaId != null && dependenteId != null) {
+            PessoaDao pessoaDao = new PessoaDao();
+            Pessoa pessoa = pessoaDao.getById(pessoaId);
+            
+            DependenteDao dependenteDao = new DependenteDao();
+            Dependente dependente = dependenteDao.getById(dependenteId);
+            request.setAttribute("pessoa", pessoa);
+            request.setAttribute("dependente", dependente);
+            RequestDispatcher rd = request.getRequestDispatcher("form_editar_dependente.jsp");
+            rd.forward(request, response);            
+        }
+ 
     }
 
 }
