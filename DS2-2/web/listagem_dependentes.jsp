@@ -45,12 +45,19 @@
                 </table>
                 <input type="hidden" name="action" value="excluirDependentesSelecionados">
                 <input type="hidden" name="pessoaid" value="${pessoa.id}"><!--TODO:Isto é necessário?-->
-                <button class="btn btn-default" type="submit" >
-                <span class="glyphicon glyphicon-trash" title="Excluir"/>
-                <span class="text-danger">Excluir selecionados</span>
+                <button class="btn btn-danger" type="submit" >
+                    <span class="glyphicon glyphicon-trash" title="Excluir"/>
+                    <span>Excluir selecionados</span>
                 </button>
             </form>
-            <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">Adicionar dependente</a>
+                
+                <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">
+                    <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-plus" title="Excluir"/>
+                    <span>Adicionar dependente</span>
+                </button>
+                    
+                </a>
         </div>
     </body>
 
