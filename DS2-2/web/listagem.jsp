@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!--Fonte Google Ubuntu-->
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
                 
         <link rel="stylesheet" href="css/bootstrap.min.css">

@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!--Fonte Google Ubuntu-->
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
@@ -17,9 +19,9 @@
     </head>
     <body>
         <div class="container-fluid">
-            <h2>Dependentes de ${pessoa.nome}</h2>
+            <h3>Dependentes de ${pessoa.nome}</h3>
             <form method="POST" action="Servlet">
-                <table>
+                <table class="table-condensed table-hover">
                     <c:forEach items="${dependentes}" var="dependente">
                         <tr>
                             <td>${dependente.nome}</td> 

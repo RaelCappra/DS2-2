@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!--Fonte Google Ubuntu-->
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
+
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
@@ -21,7 +24,7 @@
             <label for="sobrenome">Sobrenome </label>
             <input type="text" name="sobrenome" placeholder="Sobrenome"
                    id="sobrenome" value="${sobrenome}"><br>
-            
+
             <input type="hidden" name="action" value="editarPessoa">
             <input type="hidden" name="pessoaid" value="${id}">
             <input type="submit">
