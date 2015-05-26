@@ -20,7 +20,9 @@
     <body>
         <div class="container-fluid">
             <h3>Dependentes de ${pessoa.nome}</h3>
+<c:if test="!empty ${dependentes}">
             <form method="POST" action="Servlet">
+</c:if>
                 <table class="table-condensed table-hover">
                     <thead>
                         <tr>
@@ -43,13 +45,15 @@
                         </tr>
                     </c:forEach>
                 </table>
+<c:if test="!empty ${dependentes}">
                 <input type="hidden" name="action" value="excluirDependentesSelecionados">
-                <input type="hidden" name="pessoaid" value="${pessoa.id}"><!--TODO:Isto é necessário?-->
+                <input type="hidden" name="pessoaid" value="${pessoa.id}">
                 <button class="btn btn-danger" type="submit" >
                     <span class="glyphicon glyphicon-trash" title="Excluir"/>
                     <span>Excluir selecionados</span>
                 </button>
             </form>
+</c:if>
 
             <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">
                 <button class="btn btn-success" type="submit" >
