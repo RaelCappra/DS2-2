@@ -33,6 +33,13 @@
                 <input type="hidden" name="pessoaid" value="${id}">
                 <button type="submit" class="btn btn-default">Enviar</button>
             </form>
+            <a href="Servlet?action=listarPessoas">
+                <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-backward" title="Voltar"/>
+                    <span>Voltar</span>
+                </button>
+
+            </a>
         </div>
     </body>
 </html>
