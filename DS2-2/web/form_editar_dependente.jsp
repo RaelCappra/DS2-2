@@ -34,6 +34,14 @@
                 <input type="hidden" name="pessoaid" value="${pessoa.id}">
                 <button type="submit" class="btn btn-default">Enviar</button>
             </form>
+            <a href="Servlet?action=listarDependentes&pessoaid=${pessoa.id}">
+                <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-backward" title="Voltar"/>
+                    <span>Voltar</span>
+                </button>
+
+            </a>
         </div>
+
     </body>
 </html>
