@@ -60,6 +60,10 @@
                                     <a href="Servlet?action=formEditarPessoa&pessoaid=${pessoa.id}">
                                         <span class="glyphicon glyphicon-pencil" title="Editar"/></a>
                                 </td>
+                                <td align="center">
+                                    <a href="form_editar_pessoa.jsp?id=${pessoid}&nome=${pessoa.nome}&sobrenome=${pessoa.sobrenome}">
+                                        Editar-TESTE</a>
+                                </td>
                             </tr>
                         </c:forEach>
 

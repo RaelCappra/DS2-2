@@ -17,13 +17,13 @@
     <body>
         <form method="post" action="Servlet">
             <label for="nome">Nome </label>
-            <input type="text" name="nome" placeholder="Nome" id="nome" value="${nome}"><br>
+            <input type="text" name="nome" placeholder="Nome" id="nome" value="${param.nome}"><br>
             <label for="sobrenome">Sobrenome </label>
             <input type="text" name="sobrenome" placeholder="Sobrenome"
-                   id="sobrenome" value="${sobrenome}"><br>
+                   id="sobrenome" value="${param.sobrenome}"><br>
             
             <input type="hidden" name="action" value="editarPessoa">
-            <input type="hidden" name="pessoaid" value="${id}">
+            <input type="hidden" name="pessoaid" value="${param.id}">
             <input type="submit">
         </form>
     </body>

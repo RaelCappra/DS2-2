@@ -34,6 +34,7 @@ public class HttpUtil {
         if (paramValues == null || paramValues.length == 0) {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
+            return null;
         }
         long[] result = new long[paramValues.length];
         try {
@@ -47,5 +48,5 @@ public class HttpUtil {
         }
         return result;
     }
-    
+
 }
