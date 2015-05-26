@@ -55,7 +55,7 @@ public class HttpUtil {
     public static long[] getLongParameterValuesOrRedirectToIndex(HttpServletRequest request, HttpServletResponse response, String param) throws IOException, ServletException {
         String[] paramValues = request.getParameterValues(param);
         if (paramValues == null || paramValues.length == 0) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
             return null;
         }
@@ -66,7 +66,7 @@ public class HttpUtil {
                 result[i] = Long.parseLong(paramValue);
             }
         } catch (NumberFormatException e) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
             return null;
         }
