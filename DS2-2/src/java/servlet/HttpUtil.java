@@ -34,7 +34,7 @@ public class HttpUtil {
         try {
             result = Long.parseLong(paramValue);
         } catch (NumberFormatException e) {
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
             return null;
         }
