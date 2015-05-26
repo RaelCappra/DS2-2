@@ -1,4 +1,3 @@
-//TODO:Validacao em js, java e sql
 package servlet;
 
 import command.AdicionarDependenteCommand;
