@@ -23,12 +23,13 @@ public class ExcluirDependentesSelecionadosCommand implements Command {
         long[] idsDosDependentes
                 = HttpUtil.getLongParameterValuesOrRedirectToIndex(request, response,
                         "dependenteSelecionado");
-
-        DependenteDao dependenteDao = new DependenteDao();
-        for (long id : idsDosDependentes) {
-            dependenteDao.delete(id);
+        if(idsDosDependentes != null){
+            DependenteDao dependenteDao = new DependenteDao();
+            for (long id : idsDosDependentes) {
+                dependenteDao.delete(id);
+            }
+            new ListarDependentesCommand().executa(request, response);
         }
-        new ListarDependentesCommand().executa(request, response);
     }
 
 }

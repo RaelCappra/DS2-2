@@ -45,6 +45,7 @@ public class HttpUtil {
         } catch (NumberFormatException e) {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
+            return null;
         }
         return result;
     }
