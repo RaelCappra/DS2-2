@@ -38,7 +38,7 @@
                             <td align="center"><a href="Servlet?action=excluirDependente&dependenteid=${dependente.id}&pessoaid=${pessoa.id}">
                                     <span class="glyphicon glyphicon-trash" title="Excluir"/></a></a></td>
                             <td align="center"><a href="Servlet?action=formEditarDependente&dependenteid=${dependente.id}&pessoaid=${pessoa.id}">
-                                <span class="glyphicon glyphicon-pencil" title="Editar"/></a></td>
+                                    <span class="glyphicon glyphicon-pencil" title="Editar"/></a></td>
                             <td><input type="checkbox" name="dependenteSelecionado" value="${dependente.id}"></td>
                         </tr>
                     </c:forEach>
@@ -50,14 +50,14 @@
                     <span>Excluir selecionados</span>
                 </button>
             </form>
-                
-                <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">
-                    <button class="btn btn-success" type="submit" >
-                    <span class="glyphicon glyphicon-plus" title="Excluir"/>
+
+            <a href="adicionar_dependente.jsp?pessoaid=${pessoa.id}">
+                <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-plus" title="Adicionar"/>
                     <span>Adicionar dependente</span>
                 </button>
-                    
-                </a>
+
+            </a>
         </div>
     </body>
 

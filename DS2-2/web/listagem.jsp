@@ -73,7 +73,11 @@
                 </c:otherwise>
             </c:choose>
             <a href="adicionar_pessoa.jsp?">
-                <span class="glyphicon glyphicon-plus" title="Editar"/>Adicionar pessoa</a>  
+                <button class="btn btn-success" type="submit" >
+                    <span class="glyphicon glyphicon-plus" title="Adicionar"/>
+                    <span>Adicionar pessoa</span>
+                </button>
+            </a>
         </div>
     </body>
 </html>
