@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listagem de dependentes</title>
     </head>
@@ -21,7 +23,7 @@
         <div class="container-fluid">
             <h3>Dependentes de ${pessoa.nome}</h3>
 <c:if test="${!(empty dependentes)}">
-            <form method="POST" action="Servlet">
+            <form id="form" method="POST" action="Servlet">
 </c:if>
                 <table class="table-condensed table-hover">
                     <thead>

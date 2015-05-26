@@ -30,7 +30,7 @@
     </head>
     <body>
         <div class="container">
-            <form role="form" method="post" action="Servlet">
+            <form id="form" role="form" method="post" action="Servlet">
                 <div class="form-group"> 
                     <label for="nome">Nome </label>
                     <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome" value="${dependente.nome}"><br>
@@ -61,6 +61,7 @@
 		</audio>
             </span>
         </div>
-
+    
     </body>
+    <script type="text/javascript" src="js/valida.js"></script>
 </html>

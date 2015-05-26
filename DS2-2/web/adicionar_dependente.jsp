@@ -14,12 +14,14 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adicionar dependente</title>
     </head>
     <body>
         <div class ="container">
-            <form role="form" method="post" action="Servlet">
+            <form id="form" role="form" method="post" action="Servlet">
                 <div class="form-group"> 
                     <label for="nome">Nome </label>
                     <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome"><br>
@@ -42,4 +44,5 @@
             </a>
         </div>
     </body>
+     <script type="text/javascript" src="js/valida.js"></script>
 </html>
