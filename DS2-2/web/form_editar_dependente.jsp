@@ -18,17 +18,22 @@
         <title>Editar dependente de ${pessoa.nome}</title>
     </head>
     <body>
-        <form method="post" action="Servlet">
-            <label for="nome">Nome </label>
-            <input type="text" name="nome" placeholder="Nome" id="nome" value="${dependente.nome}"><br>
-            <label for="sobrenome">Sobrenome </label>
-            <input type="text" name="sobrenome" placeholder="Sobrenome"
-                   id="sobrenome" value="${dependente.sobrenome}"><br>
-            
-            <input type="hidden" name="action" value="editarDependente">
-            <input type="hidden" name="dependenteid" value="${dependente.id}">
-            <input type="hidden" name="pessoaid" value="${pessoa.id}">
-            <input type="submit">
-        </form>
+        <div class="container">
+            <form role="form" method="post" action="Servlet">
+                <div class="form-group"> 
+                    <label for="nome">Nome </label>
+                    <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome" value="${dependente.nome}"><br>
+                </div>
+                <div class="form-group"> 
+                    <label for="sobrenome">Sobrenome </label>
+                    <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome"
+                           id="sobrenome" value="${dependente.sobrenome}"><br>
+                </div>
+                <input type="hidden" name="action" value="editarDependente">
+                <input type="hidden" name="dependenteid" value="${dependente.id}">
+                <input type="hidden" name="pessoaid" value="${pessoa.id}">
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div>
     </body>
 </html>
