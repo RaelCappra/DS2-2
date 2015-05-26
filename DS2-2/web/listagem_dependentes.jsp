@@ -20,7 +20,7 @@
     <body>
         <div class="container-fluid">
             <h3>Dependentes de ${pessoa.nome}</h3>
-<c:if test="!empty ${dependentes}">
+<c:if test="${!(empty dependentes)}">
             <form method="POST" action="Servlet">
 </c:if>
                 <table class="table-condensed table-hover">
@@ -45,7 +45,7 @@
                         </tr>
                     </c:forEach>
                 </table>
-<c:if test="!empty ${dependentes}">
+<c:if test="${!(empty dependentes)}">
                 <input type="hidden" name="action" value="excluirDependentesSelecionados">
                 <input type="hidden" name="pessoaid" value="${pessoa.id}">
                 <button class="btn btn-danger" type="submit" >
