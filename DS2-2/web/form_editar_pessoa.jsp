@@ -18,16 +18,21 @@
         <title>Editar pessoa</title>
     </head>
     <body>
-        <form method="post" action="Servlet">
-            <label for="nome">Nome </label>
-            <input type="text" name="nome" placeholder="Nome" id="nome" value="${nome}"><br>
-            <label for="sobrenome">Sobrenome </label>
-            <input type="text" name="sobrenome" placeholder="Sobrenome"
-                   id="sobrenome" value="${sobrenome}"><br>
-
-            <input type="hidden" name="action" value="editarPessoa">
-            <input type="hidden" name="pessoaid" value="${id}">
-            <input type="submit">
-        </form>
+        <div class="container">
+            <form role="form" method="post" action="Servlet">
+                <div class="form-group"> 
+                    <label for="nome">Nome </label>
+                    <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome" value="${nome}"><br>
+                </div>
+                <div class="form-group"> 
+                    <label for="sobrenome">Sobrenome </label>
+                    <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome"
+                           id="sobrenome" value="${sobrenome}"><br>
+                </div>
+                <input type="hidden" name="action" value="editarPessoa">
+                <input type="hidden" name="pessoaid" value="${id}">
+                <button type="submit" class="btn btn-default">Enviar</button>
+            </form>
+        </div>
     </body>
 </html>
