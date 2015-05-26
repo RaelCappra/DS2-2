@@ -1,4 +1,4 @@
-//TODO: Adicionar botao de voltar nas paginas
+//TODO:Validacao em js, java e sql
 package servlet;
 
 import command.AdicionarDependenteCommand;
