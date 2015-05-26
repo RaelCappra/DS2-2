@@ -14,19 +14,22 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
+
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adicionar Pessoa</title>
     </head>
     <body>
         <div class="container">
-            <form role="form" method="post" action="Servlet">
+            <form role="form" method="post" action="Servlet" id="form">
                 <div class="form-group">                
                     <label for="nome">Nome </label>
-                    <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome"><br>
+                    <input class="form-control" type="text" name="nome" placeholder="Nome" id="nome" minlength="2" required><br>
                 </div>                
                 <div class="form-group">
                     <label for="sobrenome">Sobrenome </label>
-                    <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome"><br>
+                    <input class="form-control" type="text" name="sobrenome" placeholder="Sobrenome" id="sobrenome" required><br>
                 </div>
                 <input class="form-control" type="hidden" name="action" value="adicionarPessoa">
                 <button type="submit" class="btn btn-default">Enviar</button>
@@ -40,4 +43,26 @@
             </a>
         </div>
     </body>
+    <script type="text/javascript">
+        jQuery.validator.addMethod("lettersandspacesonly", function(value, element) {
+        return this.optional(element) || /^[a-z," "]+$/i.test(value);
+        }, "Somente letras e espacos");
+
+
+        jQuery.validator.addMethod("lettersonly", function(value, element) {
+          return this.optional(element) || /^[a-z]+$/i.test(value);
+        }, "Somente letras"); 
+
+
+        $("#form").validate({
+            rules: {
+                nome:{
+                    lettersonly: true
+                },
+                sobrenome:{
+                    lettersandspacesonly: true
+                }
+            }
+        });
+    </script>
 </html>
