@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +15,16 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/default.css">
+        
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/array-equals.js"></script>
+        <script src="js/easteregg.js"></script>
+    <c:if test="${dependente.nome eq 'Illuminati' and dependente.sobrenome eq 'Illuminati'}">
+        <script type="text/javascript">
+            do_easteregg = true;
+        </script>
+    </c:if>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editar dependente de ${pessoa.nome}</title>
     </head>
@@ -41,6 +52,14 @@
                 </button>
 
             </a>
+            <br>
+            <span class="hidden" id="easteregg">
+                <img src="assets/illuminati.jpg"/>
+                <br><audio controls id="audio">
+  			<source src="assets/The X-Files Theme.mp3" type="audio/mp3">
+			Your browser does not support the audio element.
+		</audio>
+            </span>
         </div>
 
     </body>
