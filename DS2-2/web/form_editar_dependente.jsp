@@ -9,15 +9,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!--Fonte Google Ubuntu-->
-        <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
-
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/default.css">
+        <c:import url="header.html"/>
         
-        <script src="js/jquery-1.11.3.min.js"></script>
-        <script src="js/jquery.validate.min.js"></script>
         <script src="js/array-equals.js"></script>
         <script src="js/easteregg.js"></script>
     <c:if test="${dependente.nome eq 'Illuminati' and dependente.sobrenome eq 'Illuminati'}">

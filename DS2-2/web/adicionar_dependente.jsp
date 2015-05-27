@@ -5,17 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!--Fonte Google Ubuntu-->
-        <link href='http://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
+        <c:import url="header.html"/>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/default.css">
-        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Adicionar dependente</title>
     </head>
